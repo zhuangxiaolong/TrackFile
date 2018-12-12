@@ -56,7 +56,7 @@
             // 
             this.txtDevice.Location = new System.Drawing.Point(91, 18);
             this.txtDevice.Name = "txtDevice";
-            this.txtDevice.Size = new System.Drawing.Size(318, 21);
+            this.txtDevice.Size = new System.Drawing.Size(486, 21);
             this.txtDevice.TabIndex = 1;
             this.txtDevice.Text = "ABCD123455";
             // 
@@ -73,13 +73,13 @@
             // 
             this.txtFileDir.Location = new System.Drawing.Point(91, 56);
             this.txtFileDir.Name = "txtFileDir";
-            this.txtFileDir.Size = new System.Drawing.Size(318, 21);
+            this.txtFileDir.Size = new System.Drawing.Size(486, 21);
             this.txtFileDir.TabIndex = 3;
             this.txtFileDir.Text = "C:\\Users\\Administrator\\Pictures";
             // 
             // btnFile
             // 
-            this.btnFile.Location = new System.Drawing.Point(416, 56);
+            this.btnFile.Location = new System.Drawing.Point(591, 56);
             this.btnFile.Name = "btnFile";
             this.btnFile.Size = new System.Drawing.Size(75, 23);
             this.btnFile.TabIndex = 4;
@@ -111,8 +111,9 @@
             // 
             this.txtUrl.Location = new System.Drawing.Point(91, 96);
             this.txtUrl.Name = "txtUrl";
-            this.txtUrl.Size = new System.Drawing.Size(318, 21);
+            this.txtUrl.Size = new System.Drawing.Size(486, 21);
             this.txtUrl.TabIndex = 8;
+            this.txtUrl.Text = "http://sgmw.umworks.com/Api/ParentChildApi/uploadPaper.aspx";
             // 
             // txtLog
             // 

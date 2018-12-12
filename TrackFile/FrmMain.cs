@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Windows.Forms;
 
@@ -133,18 +135,47 @@ namespace TrackFile
             //移到子目录
             var newfileFullname = MoveNewFile(filename);
             //上传到URL
-            UploadNewFile(newfileFullname);
+            var msg = string.Empty;
+            var uploadResult=UploadNewFile(newfileFullname,out msg);
             //写日志
             var file=new FileInfo(newfileFullname);
-            AddLog(string.Format("完成文件：{0} 的上传并移到 {1} 子目录", file.Name, file.Directory));
+            if (!uploadResult)
+            {
+                AddLog(string.Format("文件：{0} 的上传失败：{1} 并移到 {2} 子目录", file.Name, msg,file.Directory));
+            }
+            else
+            {
+                AddLog(string.Format("文件：{0} 的上传成功并移到 {1} 子目录", file.Name, file.Directory));
+            }
         }
 
-        private void UploadNewFile(string filename)
+        private bool UploadNewFile(string filename,out string msg)
         {
+            msg = string.Empty;
              if (string.IsNullOrEmpty(txtUrl.Text.Trim()))
-                return;
+                return false;
+
+            var file = new FileInfo(filename);
             //todo
+            var url = txtUrl.Text.Trim();
+            var files = new string[1];
+            files[0] = filename;
+            var strFileName = Path.GetFileNameWithoutExtension(filename);
+            var iFileName = 0;
+            if (!int.TryParse(strFileName, out iFileName))
+            {
+                //paperId只能是整型
+                msg=string.Format("{0} 文件名不是整型，上传失败", filename);
+                return false;
+            }
+            var nvc = new NameValueCollection
+            {
+                {"paperId", strFileName},
+                { "DealerId", txtDevice.Text.Trim()}
+            };
+            return UploadHelper.UploadFiles(url,files,nvc,out msg);
         }
+
         private string MoveNewFile(string filename)
         {
             var file = new FileInfo(filename);
