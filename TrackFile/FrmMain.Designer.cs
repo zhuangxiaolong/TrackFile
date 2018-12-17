@@ -40,6 +40,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.plog = new System.Windows.Forms.Panel();
+            this.btnClear = new System.Windows.Forms.Button();
             this.plog.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -156,11 +157,23 @@
             this.plog.Size = new System.Drawing.Size(575, 194);
             this.plog.TabIndex = 11;
             // 
+            // btnClear
+            // 
+            this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnClear.Location = new System.Drawing.Point(12, 348);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(75, 23);
+            this.btnClear.TabIndex = 12;
+            this.btnClear.Text = "清空日志";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(678, 375);
+            this.Controls.Add(this.btnClear);
             this.Controls.Add(this.plog);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtUrl);
@@ -196,6 +209,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel plog;
+        private System.Windows.Forms.Button btnClear;
     }
 }
 

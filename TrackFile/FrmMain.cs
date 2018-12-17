@@ -26,6 +26,8 @@ namespace TrackFile
         {
             try
             {
+                LoadSetting();
+
                 _timer = new Timer
                 {
                     Interval = 3*1000
@@ -42,6 +44,8 @@ namespace TrackFile
         {
             try
             {
+                SaveSetting();
+
                 if (string.IsNullOrEmpty(txtFileDir.Text.Trim()))
                     throw new ApplicationException("图片目录不能为空");
                // if (string.IsNullOrEmpty(txtUrl.Text.Trim()))
@@ -50,7 +54,8 @@ namespace TrackFile
                 if (!folderResult)
                     throw new ApplicationException("图片目录不正确");
 
-                LoadFolderFile();
+                _lstFile = new List<string>();
+               // LoadFolderFile();
                   _timer.Start();
                // TimerTrackFile(null, null);
                 StartStatus();
@@ -61,9 +66,29 @@ namespace TrackFile
             }
         }
 
+        private void SaveSetting()
+        {
+            Properties.Settings.Default.Device = txtDevice.Text.Trim();
+            ;Properties.Settings.Default.FileDir=txtFileDir.Text.Trim();
+            Properties.Settings.Default.URL = txtUrl.Text.Trim();
+            Properties.Settings.Default.Save();
+        }
+
+        private void LoadSetting()
+        {
+            if (Properties.Settings.Default==null)
+                return;
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Device))
+                txtDevice.Text = Properties.Settings.Default.Device;
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.FileDir))
+                txtFileDir.Text = Properties.Settings.Default.FileDir;
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.URL))
+                txtUrl.Text = Properties.Settings.Default.URL;
+        }
+
+
         private void LoadFolderFile()
         {
-            _lstFile = new List<string>();
             var lst = Directory.GetFiles(txtFileDir.Text.Trim());
             foreach (var s in lst)
             {
@@ -112,7 +137,7 @@ namespace TrackFile
             try
             {
                 var lst = Directory.GetFiles(txtFileDir.Text.Trim());
-                for (int i = lst.Length-1; i >0; i--)
+                for (int i = lst.Length-1; i >=0; i--)
                 {
                     var filename = lst[i];
                     if (!File.Exists(filename))
@@ -226,6 +251,11 @@ namespace TrackFile
                 + "\r\n" + txtLog.Text;
 
             logNum++;
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            txtLog.Text = string.Empty;
         }
     }
 }
